@@ -1,0 +1,119 @@
+html {
+   
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    font-size: 40px;
+}
+
+body {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculator {
+    font-size: 40px;
+    width: 500px;
+    height: 600px;
+    border: 2px solid;
+    display: flex;
+    flex-direction: column;
+}
+
+.display {
+    height: 20%;
+    width: 100%;
+    border: 2px solid;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    
+}
+
+.history,
+.input {
+    flex: 1;
+    text-align: right;
+    border: 1px solid;
+}
+
+.buttons {
+    
+    display: flex;
+    flex-flow: row wrap;
+    flex: 3;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px;
+    
+   
+}
+
+.block {
+    flex: 1;
+}
+
+.top {
+    flex: 1 0 auto;
+    width: 100%;
+    height: 20%;
+    margin: 5px;
+    display: flex;
+    gap: 5px;
+}
+
+
+.main {
+    flex: 3;
+    width: 80%;
+    height: 79%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px
+    
+}
+
+.right {
+    flex: 1;;
+    width: 20%;
+    height: 79%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    
+}
+
+.btn {
+    border-radius: 10%;
+}
+
+.top .btn{
+    flex: 1;
+    background-color: orange;
+    
+
+}
+.main .btn {
+    flex: 1 1 auto;
+    width: 30%;
+}
+
+.right .btn {
+    flex: 1 1 auto;
+    background-color: orange;
+}
+
+.right .equals {
+    flex: 1 0 auto;
+}
+
+
+
+
