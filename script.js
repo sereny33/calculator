@@ -17,11 +17,12 @@ const division = function(a, b) {
 }
 
 
-// operands and operator variables
+// operands, operator and storage variables
 
-let firstOperand = +prompt('Num1', 0);
-let secondOperand = +prompt('Num2', 0);
-let operator = prompt("+ or - or * or /");
+let firstOperand;
+let secondOperand;
+let operator
+let valueStorage = ""
 
 
 // chosing operation to perform
@@ -45,6 +46,32 @@ const operate = function(firstOperand, operator, secondOperand) {
     }
 }
 
-let result = operate(firstOperand, operator, secondOperand);
+// filling the display and storing values
 
-console.log(result)
+const inputDisplay = document.querySelector('#input');
+const digits = document.querySelectorAll('.digit');
+digits.forEach(digit => digit.addEventListener('click', (e)=> {
+    inputDisplay.textContent += `${e.target.value}`
+    valueStorage += `${e.target.value}`
+}));
+
+// choose operator and firstOperand, empty input
+const opers = document.querySelectorAll('.oper')
+opers.forEach(oper => oper.addEventListener('click', (e)=> {
+    firstOperand = +valueStorage;
+    valueStorage = ""
+    inputDisplay.textContent = ''
+    operator = `${e.target.value}`
+}));
+
+// assign secondOperand and evaluate
+const equals = document.querySelector('.equals');
+equals.addEventListener('click', ()=> {
+    secondOperand = +valueStorage;
+    valueStorage = ""
+    inputDisplay.textContent = "";
+    inputDisplay.textContent = `${operate(firstOperand,operator,secondOperand)}`
+    
+});
+
+
