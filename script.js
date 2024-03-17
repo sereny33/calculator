@@ -48,6 +48,7 @@ const operate = function(firstOperand, operator, secondOperand) {
 }
 
 // filling the display and storing values
+const history = document.querySelector('#history');
 
 const inputDisplay = document.querySelector('#input');
 const digits = document.querySelectorAll('.digit');
@@ -62,6 +63,7 @@ digits.forEach(digit => digit.addEventListener('click', (e)=> {
 const opers = document.querySelectorAll('.oper')
 opers.forEach(oper => oper.addEventListener('click', (e)=> {
     firstOperand = +valueStorage;
+    history.textContent = `${valueStorage} ${e.target.value}`
     valueStorage = ""
     inputDisplay.textContent = ''
     currentValue = []
@@ -70,8 +72,9 @@ opers.forEach(oper => oper.addEventListener('click', (e)=> {
 
 // assign secondOperand and evaluate
 const equals = document.querySelector('.equals');
-equals.addEventListener('click', ()=> {
+equals.addEventListener('click', (e)=> {
     secondOperand = +valueStorage;
+    history.textContent += ` ${valueStorage} ${e.target.value}`;
     valueStorage = operate(firstOperand, operator, secondOperand)
     currentValue = [];
     inputDisplay.textContent = valueStorage
@@ -112,7 +115,7 @@ function positiveNegative() {
     inputDisplay.textContent = `${valueStorage}`
 }
 
-// point
+// point btn to work with floats
 
 const point = document.querySelector('.point')
 point.addEventListener ('click', makeFloat)
