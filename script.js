@@ -19,9 +19,9 @@ const division = function(a, b) {
 
 // operands, operator and storage variables
 
-let firstOperand;
-let secondOperand;
-let operator
+let firstOperand = 0;
+let secondOperand = 0;
+let operator = ""
 let valueStorage = "";
 let currentValue = [];
 
@@ -52,34 +52,38 @@ const history = document.querySelector('#history');
 
 const inputDisplay = document.querySelector('#input');
 const digits = document.querySelectorAll('.digit');
-digits.forEach(digit => digit.addEventListener('click', (e)=> {
-    currentValue.push(e.target.value)
-    valueStorage = `${currentValue.join('')}`
-    inputDisplay.textContent = valueStorage;
+digits.forEach(digit => digit.addEventListener('click', digitInput));
 
-}));
-
+function digitInput(e) {
+        
+        currentValue.push(e.target.value)
+        valueStorage = `${currentValue.join('')}`
+        inputDisplay.textContent = valueStorage;
+}
 // choose operator and firstOperand, empty input
 const opers = document.querySelectorAll('.oper')
-opers.forEach(oper => oper.addEventListener('click', (e)=> {
-    firstOperand = +valueStorage;
-    history.textContent = `${valueStorage} ${e.target.value}`
-    valueStorage = ""
-    inputDisplay.textContent = ''
-    currentValue = []
-    operator = `${e.target.value}`
-}));
+opers.forEach(oper => oper.addEventListener('click', operInput));
+
+function operInput(e) {
+        firstOperand = +valueStorage;
+        history.textContent = `${valueStorage} ${e.target.value}`
+        valueStorage = ""
+        inputDisplay.textContent = ''
+        currentValue = []
+        operator = `${e.target.value}`
+}
 
 // assign secondOperand and evaluate
 const equals = document.querySelector('.equals');
-equals.addEventListener('click', (e)=> {
-    secondOperand = +valueStorage;
-    history.textContent += ` ${valueStorage} ${e.target.value}`;
-    valueStorage = operate(firstOperand, operator, secondOperand)
-    currentValue = [];
-    inputDisplay.textContent = valueStorage
-    
-});
+equals.addEventListener('click', eval);
+
+function eval(e) {
+        secondOperand = +valueStorage;
+        history.textContent += ` ${valueStorage} ${e.target.value}`;
+        valueStorage = operate(firstOperand, operator, secondOperand)
+        currentValue = [];
+        inputDisplay.textContent = valueStorage
+}
 
 // clear button
 const clear = document.querySelector('.clear');
@@ -91,6 +95,7 @@ function clearAll() {
     valueStorage = "";
     currentValue = [];
     inputDisplay.textContent = "";
+    history.textContent = ""
 }
 
 // backspace button
