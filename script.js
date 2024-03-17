@@ -95,6 +95,7 @@ const del = document.querySelector('.backspace')
 del.addEventListener('click', backspace);
 
 function backspace() {
+    currentValue = valueStorage.toString().split('')
     currentValue.pop();
     valueStorage = `${currentValue.join('')}`
     inputDisplay.textContent = currentValue.join('')
@@ -111,5 +112,19 @@ function positiveNegative() {
     inputDisplay.textContent = `${valueStorage}`
 }
 
+// point
+
+const point = document.querySelector('.point')
+point.addEventListener ('click', makeFloat)
+
+function makeFloat(e) {
+
+    if (valueStorage.split('.').length < 2) {
+        currentValue.push(e.target.value)
+        valueStorage = `${currentValue.join('')}`
+        inputDisplay.textContent = valueStorage;
+    }
+
+}
 
 
