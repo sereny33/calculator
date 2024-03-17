@@ -22,7 +22,8 @@ const division = function(a, b) {
 let firstOperand;
 let secondOperand;
 let operator
-let valueStorage = ""
+let valueStorage = "";
+let currentValue = [];
 
 
 // chosing operation to perform
@@ -51,8 +52,10 @@ const operate = function(firstOperand, operator, secondOperand) {
 const inputDisplay = document.querySelector('#input');
 const digits = document.querySelectorAll('.digit');
 digits.forEach(digit => digit.addEventListener('click', (e)=> {
-    inputDisplay.textContent += `${e.target.value}`
-    valueStorage += `${e.target.value}`
+    currentValue.push(e.target.value)
+    valueStorage = `${currentValue.join('')}`
+    inputDisplay.textContent = valueStorage;
+
 }));
 
 // choose operator and firstOperand, empty input
@@ -61,6 +64,7 @@ opers.forEach(oper => oper.addEventListener('click', (e)=> {
     firstOperand = +valueStorage;
     valueStorage = ""
     inputDisplay.textContent = ''
+    currentValue = []
     operator = `${e.target.value}`
 }));
 
@@ -68,10 +72,44 @@ opers.forEach(oper => oper.addEventListener('click', (e)=> {
 const equals = document.querySelector('.equals');
 equals.addEventListener('click', ()=> {
     secondOperand = +valueStorage;
-    valueStorage = ""
-    inputDisplay.textContent = "";
-    inputDisplay.textContent = `${operate(firstOperand,operator,secondOperand)}`
+    valueStorage = operate(firstOperand, operator, secondOperand)
+    currentValue = [];
+    inputDisplay.textContent = valueStorage
     
 });
+
+// clear button
+const clear = document.querySelector('.clear');
+clear.addEventListener('click', clearAll)
+
+function clearAll() {
+    firstOperand = null;
+    secondOperand = null;
+    valueStorage = "";
+    currentValue = [];
+    inputDisplay.textContent = "";
+}
+
+// backspace button
+const del = document.querySelector('.backspace')
+del.addEventListener('click', backspace);
+
+function backspace() {
+    currentValue.pop();
+    valueStorage = `${currentValue.join('')}`
+    inputDisplay.textContent = currentValue.join('')
+}
+    
+
+// positive / negative
+
+const plusMinus = document.querySelector('.plus-minus');
+plusMinus.addEventListener ('click', positiveNegative);
+
+function positiveNegative() {
+    valueStorage = -valueStorage;
+    inputDisplay.textContent = `${valueStorage}`
+}
+
 
 
