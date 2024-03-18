@@ -52,21 +52,42 @@ const history = document.querySelector('#history');
 
 const inputDisplay = document.querySelector('#input');
 const digits = document.querySelectorAll('.digit');
-digits.forEach(digit => digit.addEventListener('click', digitInput));
+digits.forEach(digit => digit.addEventListener('click', digitInput)); // click btn digit input
+window.addEventListener('keydown', (e) => {                          // keyboard digit input
+    for (let digit of digits) {                         
+        if (e.key === digit.value) {
+            currentValue.push(digit.value)
+            valueStorage = `${currentValue.join('')}`
+            inputDisplay.textContent = valueStorage;
+        }
+    }
+})
 
 function digitInput(e) {
-        
         currentValue.push(e.target.value)
         valueStorage = `${currentValue.join('')}`
         inputDisplay.textContent = valueStorage;
 }
+
 // choose operator and firstOperand, empty input
 const opers = document.querySelectorAll('.oper')
-opers.forEach(oper => oper.addEventListener('click', operInput));
+opers.forEach(oper => oper.addEventListener('click', operInput)); // click btn oper input
+window.addEventListener('keydown', (e) => {                       // keyboard oper input
+    for (let oper of opers) {                         
+        if (e.key === oper.value) {
+            firstOperand = +valueStorage;
+            history.textContent = `${firstOperand} ${oper.value}`
+            valueStorage = ""
+            inputDisplay.textContent = ''
+            currentValue = []
+            operator = `${oper.value}`
+        }
+    }
+})
 
 function operInput(e) {
         firstOperand = +valueStorage;
-        history.textContent = `${valueStorage} ${e.target.value}`
+        history.textContent = `${firstOperand} ${e.target.value} `
         valueStorage = ""
         inputDisplay.textContent = ''
         currentValue = []
@@ -77,9 +98,19 @@ function operInput(e) {
 const equals = document.querySelector('.equals');
 equals.addEventListener('click', eval);
 
+window.addEventListener('keydown', (e) => {
+    if (e.key === equals.value) {
+        secondOperand = +valueStorage;
+        history.textContent += ` ${valueStorage} `;
+        valueStorage = operate(firstOperand, operator, secondOperand)
+        currentValue = [];
+        inputDisplay.textContent = valueStorage
+        }
+})
+
 function eval(e) {
         secondOperand = +valueStorage;
-        history.textContent += ` ${valueStorage} ${e.target.value}`;
+        history.textContent += ` ${valueStorage} `;
         valueStorage = operate(firstOperand, operator, secondOperand)
         currentValue = [];
         inputDisplay.textContent = valueStorage
@@ -101,6 +132,11 @@ function clearAll() {
 // backspace button
 const del = document.querySelector('.backspace')
 del.addEventListener('click', backspace);
+window.addEventListener('keydown', (e) => {
+    if (e.key === del.value) {
+        backspace()
+    }
+})
 
 function backspace() {
     currentValue = valueStorage.toString().split('')
@@ -124,6 +160,15 @@ function positiveNegative() {
 
 const point = document.querySelector('.point')
 point.addEventListener ('click', makeFloat)
+window.addEventListener ('keydown', (e) => {
+    if (e.key === point.value) {
+        if (valueStorage.split('.').length < 2) {
+            currentValue.push(point.value)
+            valueStorage = `${currentValue.join('')}`
+            inputDisplay.textContent = valueStorage;
+        }
+    }
+})
 
 function makeFloat(e) {
 
